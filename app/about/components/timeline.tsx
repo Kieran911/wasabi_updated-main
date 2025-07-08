@@ -77,6 +77,9 @@ const timelineEvents = [
   },
 ];
 
+let textBelowContent =
+  'FROM A SPARK OF BOLDNESS TO A SYMPHONY OF TASTE. THE WASABI STORY';
+
 export const Timeline = () => {
   const targetRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -122,7 +125,7 @@ export const Timeline = () => {
           <div className="sticky top-0 h-screen flex items-center overflow-hidden pb-32">
             <h2
               className={twMerge(
-                'absolute top-[10%] left-[10vw] text-5xl font-light text-black z-20',
+                'absolute top-[7%] left-[10vw] text-5xl font-light text-black z-20',
                 forum.className
               )}
             >
@@ -136,7 +139,7 @@ export const Timeline = () => {
               style={{
                 x,
                 paddingRight: eventWidth,
-                transform: 'translateY(-120px) scale(0.95)',
+                transform: 'translateY(-160px) scale(0.95)',
               }}
             >
               {/* Main Horizontal line - positioned relative to contentRef and spans between item centers */}
@@ -154,11 +157,6 @@ export const Timeline = () => {
               )}
 
               {timelineEvents.map((event, index) => {
-                const isActive = useTransform(
-                  activeItemProgress,
-                  [index - 0.5, index],
-                  [0.5, 1]
-                );
                 const activeScale = useTransform(
                   activeItemProgress,
                   [index - 0.5, index],
@@ -178,6 +176,11 @@ export const Timeline = () => {
                   activeItemProgress,
                   [index - 0.5, index],
                   ['#9ca3af', '#000000']
+                );
+                const activeImageOpacity = useTransform(
+                  activeItemProgress,
+                  [index - 0.5, index],
+                  [0, 1]
                 );
 
                 return (
@@ -209,11 +212,11 @@ export const Timeline = () => {
                     </motion.div>
 
                     {/* Vertical line and content block below the horizontal line */}
-                    <div className="absolute top-[calc(50% + 0.75rem)] flex flex-col items-center">
+                    <div className="absolute top-[calc(50% + 0.75rem)]  max-h-[280px] flex flex-col items-center">
                       <motion.div
-                        className="w-[1px] bg-gray-300"
+                        className="w-[1px] bg-gray-300 min-h-[50px]"
                         style={{
-                          height: '65px',
+                          height: '50px',
                           backgroundColor: activeLineColor,
                         }}
                       />
@@ -224,18 +227,19 @@ export const Timeline = () => {
                           'flex flex-col items-start text-left max-w-[250px] translate-x-[45%]',
                           noto_sans.className
                         )}
-                        style={{ opacity: isActive }}
                       >
-                        <h3 className="text-sm font-bold text-black uppercase mb-0.5">
+                        <h3 className="text-sm font-bold text-black uppercase mb-[1px]">
                           {event.title}
                         </h3>
-                        <p className="text-xs text-gray-700 leading-relaxed">
+                        <p className="text-xs text-gray-900 leading-[1.4]">
                           {event.description}
                         </p>
                         {event.image && (
                           <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
+                            style={{
+                              opacity: activeImageOpacity,
+                            }}
+                            className="w-full"
                           >
                             <Image
                               src={event.image}
@@ -249,6 +253,31 @@ export const Timeline = () => {
                   </div>
                 );
               })}
+              {/* textBelowContent at the bottom, scrolls with timeline, desktop only */}
+              <div
+                className="flex-shrink-0 flex items-end justify-start w-full translate-y-[300%]"
+                style={{
+                  width: `${contentWidth}px`,
+                  position: 'absolute',
+                  left: '20vw',
+                  bottom: '0vh',
+                  pointerEvents: 'none',
+                }}
+              >
+                <span
+                  className={twMerge(
+                    'text-[110px] font-extrabold tracking-tight text-black opacity-20 w-full',
+                    forum.className
+                  )}
+                  style={{
+                    letterSpacing: '0.05em',
+                    userSelect: 'none',
+                    lineHeight: 1,
+                  }}
+                >
+                  {textBelowContent}
+                </span>
+              </div>
             </motion.div>
           </div>
         </div>

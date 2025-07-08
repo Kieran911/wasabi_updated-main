@@ -40,6 +40,7 @@ export const AboutAndBelief = () => {
   const aboutX = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const wasabiX = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const filterScale = useTransform(scrollYProgress, [0, 1], [1, 1.4]);
+  const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <div className="h-[200vh] w-full relative bg-black">
@@ -80,7 +81,10 @@ export const AboutAndBelief = () => {
             WASABI
           </motion.span>
         </div>
-        <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" />
+        <motion.div
+          style={{ opacity: overlayOpacity }}
+          className="absolute inset-0 bg-black/90 z-50 pointer-events-none"
+        />
       </div>
 
       {/* Belief Section */}
@@ -88,7 +92,11 @@ export const AboutAndBelief = () => {
         ref={beliefRef}
         className="h-[100vh] w-full sticky top-0 overflow-hidden z-20 flex items-center justify-center bg-black"
       >
-        <div className="w-full max-w-5xl mx-auto flex flex-col items-center text-center px-4">
+        <motion.div
+          className="w-full max-w-5xl mx-auto flex flex-col items-center text-center px-4"
+          layout
+          transition={{ delayChildren: 0.3 }}
+        >
           <div className="mb-4 flex flex-col items-center">
             <span className="h-24 w-24">
               <Image
@@ -108,11 +116,14 @@ export const AboutAndBelief = () => {
             OUR BELIEF
           </div>
 
-          <div
+          <motion.div
             className={twMerge(
               'text-white text-lg md:text-3xl font-normal leading-relaxed md:leading-relaxed mb-8 max-w-4xl mx-auto',
               playfair.className
             )}
+            initial={{ translateY: 70 }}
+            whileInView={{ translateY: 0 }}
+            transition={{ type: 'spring', bounce: 0.1 }}
           >
             <span className={forum.className}>Because</span>{' '}
             <span className="italic">Bold Deserves Beauty</span>.{' '}
@@ -124,9 +135,14 @@ export const AboutAndBelief = () => {
             </span>{' '}
             <span className={forum.className}>We Exist To Turn</span>{' '}
             <span className="italic">Dining Into Art.</span>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-row justify-center items-center gap-x-12 mb-8 text-gray-200">
+          <motion.div
+            className="flex flex-row justify-center items-center gap-x-12 mb-8 text-gray-200"
+            initial={{ translateY: 70 }}
+            whileInView={{ translateY: 0 }}
+            transition={{ type: 'spring', bounce: 0.1 }}
+          >
             <div
               className={twMerge(
                 'flex flex-col items-center m-6',
@@ -162,19 +178,22 @@ export const AboutAndBelief = () => {
               </span>
               <span className="text-sm mt-1">23 Chefs</span>
             </div>
-          </div>
+          </motion.div>
 
-          <div
+          <motion.div
             className={twMerge(
               'text-gray-300 text-sm md:text-base tracking-wide mt-2',
               noto_sans.className
             )}
+            initial={{ translateY: 70 }}
+            whileInView={{ translateY: 0 }}
+            transition={{ type: 'spring', bounce: 0.1 }}
           >
             We're Not Just Serving Meals—We're Curating Moments
             <br />
             Of Indulgence, Artistry, And Unforgettable Taste.
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );

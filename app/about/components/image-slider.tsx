@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Forum, Noto_Sans } from 'next/font/google';
 import { twMerge } from 'tailwind-merge';
+import Image from 'next/image';
 
 const forum = Forum({
   subsets: ['latin'],
@@ -15,13 +16,12 @@ const noto_sans = Noto_Sans({
   weight: ['400'],
 });
 
+import cheers from '@/public/about/Cheers.png';
 import firstImage from '@/public/about/turshu-govurma-plov-national-azerbaijani-food.png';
 import secondImage from '@/public/about/top-view-elegantly-arranged-plate.png';
 import thirdImage from '@/public/about/fried-meat-with-mix-cabbage-apple-onion-bbq-sauce-side-view.png';
 import fourthImage from '@/public/about/closeup-side-dish-with-vegetables-caviar-top-with-blurred-background.png';
 import fifthImage from '@/public/about/mash-topped-with-vegetables-pomegranate.png';
-import cheers from '@/public/about/Cheers.png';
-import Image from 'next/image';
 const sixthItem = () => {
   return (
     <div className="w-full h-full text-white flex items-center justify-center gap-8">
@@ -33,7 +33,7 @@ const sixthItem = () => {
           className="h-7 w-7 flex items-center justify-center mx-auto"
           initial={{ translateX: 80, opacity: 0.5 }}
           whileInView={{ translateX: 0, opacity: 1 }}
-          transition={{ type: 'spring' }}
+          transition={{ type: 'spring', bounce: 0 }}
         >
           <Image
             src={cheers}
@@ -50,6 +50,7 @@ const sixthItem = () => {
           whileInView={{ translateX: 0, opacity: 1 }}
           transition={{
             type: 'spring',
+            bounce: 0,
             delay: 0.1,
           }}
         >
@@ -61,6 +62,7 @@ const sixthItem = () => {
           whileInView={{ translateX: 0, opacity: 1 }}
           transition={{
             type: 'spring',
+            bounce: 0,
 
             delay: 0.3,
           }}
@@ -189,9 +191,10 @@ export const ImagesSlider = () => {
       return -v;
     });
     const springX = useSpring(translateX, {
-      stiffness: 70,
-      damping: 18,
+      stiffness: 250,
+      damping: 17,
       mass: 1,
+      bounce: 0,
     });
 
     return (
