@@ -10,7 +10,7 @@ const Page = () => {
       <AboutAndBelief />
       <DinnerTable />
       <Timeline />
-      {/* <CuratedMenu /> test */}
+
       <ImagesSlider />
       <FeastInStyle />
     </div>
